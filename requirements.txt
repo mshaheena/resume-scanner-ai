@@ -1,0 +1,6 @@
+# requirements.txt
+gradio
+pdfplumber
+transformers
+scikit-learn
+torch
