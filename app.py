@@ -2,7 +2,8 @@
 import gradio as gr
 from resume_utils import process_resume
 
-# === Custom Theme Styling ===
+import gradio as gr
+
 custom_theme = gr.themes.Soft(
     primary_hue="indigo",
     secondary_hue="emerald",
@@ -13,9 +14,9 @@ custom_theme = gr.themes.Soft(
     button_primary_text_color="white",
     block_background_fill="white",
     block_shadow="0 4px 12px rgba(0,0,0,0.1)",
-    border_radius="12px",
     shadow_spread="1px"
 )
+
 
 
 import gradio as gr
@@ -38,11 +39,9 @@ def scan_resume(pdf_file, role):
     **Selected Role:** {role}
     
     **Score:** {score}% match
-
     **Matched Skills:** {', '.join(matched) if matched else 'None'}
     
     **Missing Skills:** {', '.join(missing) if missing else 'None'}
-
     ### ✍️ Suggestions:
     {suggestions}
     """
@@ -77,6 +76,8 @@ demo = gr.Interface(
 
 if __name__ == "__main__":
     demo.launch()
+
+
 
 
 
