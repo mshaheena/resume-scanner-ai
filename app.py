@@ -1,5 +1,24 @@
 # app.py
 import gradio as gr
+from resume_utils import process_resume
+
+# === Custom Theme Styling ===
+custom_theme = gr.themes.Soft(
+    primary_hue="indigo",
+    secondary_hue="emerald",
+    neutral_hue="gray",
+).set(
+    body_background_fill="#f9f9fc",
+    button_primary_background_fill="#4f46e5",
+    button_primary_text_color="white",
+    block_background_fill="white",
+    block_shadow="0 4px 12px rgba(0,0,0,0.1)",
+    border_radius="12px",
+    shadow_spread="1px"
+)
+
+
+import gradio as gr
 from resume_utils import extract_text_from_pdf, evaluate_resume, suggest_improvements
 
 job_roles = {
@@ -42,4 +61,22 @@ Upload your resume and select a job role. Get an AI-powered hiring score with fe
     submit_btn = gr.Button("Scan Resume")
     submit_btn.click(fn=scan_resume, inputs=[pdf_input, job_input], outputs=output)
 
-demo.launch()
+demo = gr.Interface(
+    fn=process_resume,
+    inputs=[
+        gr.File(label="📎 Upload your resume (PDF)", file_types=[".pdf"]),
+        gr.Dropdown(choices=["Data Scientist", "ML Engineer", "AI Engineer"], label="🎯 Select Job Role")
+    ],
+    outputs=[
+        gr.Markdown(label="📊 AI Resume Insights")
+    ],
+    title="🤖 AI Resume Scanner",
+    description="Upload your resume and select a job role to get an AI-powered hiring score with feedback.",
+    theme=custom_theme
+)
+
+if __name__ == "__main__":
+    demo.launch()
+
+
+
